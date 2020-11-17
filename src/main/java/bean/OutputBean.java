@@ -2,6 +2,11 @@ package bean;
 
 public class OutputBean implements java.io.Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	String filename;
 	
 	String analyze;//as example

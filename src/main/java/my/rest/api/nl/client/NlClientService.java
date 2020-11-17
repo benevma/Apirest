@@ -17,29 +17,22 @@ import my.rest.api.nl.bean.Document;
 import my.rest.api.utils.ClientUtils;
 
 public class NlClientService implements INlClientService{
-	
-	private static WebResource webResourceAnalyze;	
-	private static WebResource webResourceCategorize;	
-	
+		
 	private static NlClientService service = null;
+	private static WebResource webResourceAnalyze = null;
+	private static WebResource webResourceCategorize = null;
 	
 	private NlClientService(){}
 	
 	public static NlClientService getInstance(){
 		if(service==null){
-			service = new NlClientService();
 			//Client init
 			Client client = Client.create();
-
+			service = new NlClientService();
 			webResourceAnalyze = client
 			           .resource(INlClientService.ANALYZE_URL);
-            //add header: Authorization Bearer Rc7JE8P7XUgSCPogsdfdLMfITqQQrjg
-            String value = "Bearer " + INlClientService.BEARER;
-            webResourceAnalyze.setProperty("Authorization", value);
-            
-            webResourceCategorize = client
+			webResourceCategorize = client
 			           .resource(INlClientService.CATEGORIZE_URL);
-            webResourceCategorize.setProperty("Authorization", value);
 		}
 		return service;
 	}
@@ -63,7 +56,9 @@ public class NlClientService implements INlClientService{
 			AnalyzeResponse responseAnalyze = null;
 			
 			try {
-				response = webResourceAnalyze.accept("application/json")
+				response = webResourceAnalyze
+					    .header("Content-Type", "application/json;charset=UTF-8")
+					    .header("Authorization", "Bearer " + INlClientService.BEARER)
 				        .post(ClientResponse.class,request);
 			} catch (UniformInterfaceException e) {
 				System.out.println("webResourceAnalyze UniformInterfaceException "+doc.getName());
@@ -76,7 +71,9 @@ public class NlClientService implements INlClientService{
 			}finally{
 				if(response!=null
 						&& response.getStatus() == 200){
-					responseAnalyze = response.getEntity(AnalyzeResponse.class);
+				 
+				 responseAnalyze = ClientUtils.getObjectFromResponse(response, AnalyzeResponse.class);
+				 
 				}
 			}
 			
@@ -85,8 +82,12 @@ public class NlClientService implements INlClientService{
 			CategorizeResponse responseCategorize = null;
 			
 			try {
-				response = webResourceCategorize.accept("application/json")
+				
+				response = webResourceCategorize
+					    .header("Content-Type", "application/json;charset=UTF-8")
+					    .header("Authorization", "Bearer " + INlClientService.BEARER)
 				        .post(ClientResponse.class,request);
+				
 			} catch (UniformInterfaceException e) {
 				System.out.println("webResourceCategorize UniformInterfaceException "+doc.getName());
 				//retrieve mock response just for testing
@@ -98,7 +99,9 @@ public class NlClientService implements INlClientService{
 			}finally{
 				if(response!=null
 						&& response.getStatus() == 200){
-					responseCategorize = response.getEntity(CategorizeResponse.class);
+					
+					responseCategorize = ClientUtils.getObjectFromResponse(response,CategorizeResponse.class);
+					
 				}
 			}
 			daoInput.setCategorize(responseCategorize);

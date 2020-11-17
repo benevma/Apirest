@@ -8,7 +8,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import bean.InputBean;
 import bean.InputExpertBean;
 import bean.OutputBean;
 import bean.OutputExpertBean;

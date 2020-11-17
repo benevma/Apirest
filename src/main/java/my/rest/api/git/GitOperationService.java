@@ -16,20 +16,15 @@ import org.eclipse.jgit.api.errors.TransportException;
 import org.eclipse.jgit.api.errors.UnmergedPathsException;
 import org.eclipse.jgit.api.errors.WrongRepositoryStateException;
 import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 import bean.InputBean;
 
 public class GitOperationService implements IGitOperationService {
 
-   // private static final String REMOTE_URL = "https://github.com/oriolserret/expert.ai.assessment.git";
-   // private static final String GIT_USER = "user";
-   // private static final String GIT_PASSWORD = "password";
-
-    private static final String REMOTE_URL = "https://github.com/benevma/test-crud.git";
-    private static final String GIT_USER = "ben****.com";
-    private static final String GIT_PASSWORD = "Krako****";
+	   private static final String REMOTE_URL = "https://github.com/oriolserret/expert.ai.assessment.git";
+	   private static final String GIT_USER = "user";
+	   private static final String GIT_PASSWORD = "password";
     
 	//Inject service containing configurations
 	
@@ -38,7 +33,7 @@ public class GitOperationService implements IGitOperationService {
 		 
 		try {
 			// prepare a new folder for the cloned repository
-			File localPath = File.createTempFile("MarioRep", "");
+			File localPath = File.createTempFile("WebAppTempRep", "");
 			// then clone
 		    if (!localPath.exists() && !localPath.isDirectory()) {
 		        localPath.mkdir();
@@ -51,7 +46,7 @@ public class GitOperationService implements IGitOperationService {
 					.call();
 			Repository repository = git.getRepository();
 			// create the folder
-			File theDir = new File(repository.getDirectory().getParent(), "dir1");
+			File theDir = new File(repository.getDirectory().getParent(), Long.toString(System.currentTimeMillis()));
 			theDir.mkdir();
 
 			// create the file
@@ -71,16 +66,7 @@ public class GitOperationService implements IGitOperationService {
 			// Stage all changed files, omitting new files, and commit with one
 			// command
 			git.commit().setAll(true).setMessage("Commit changes to all files").call();
-			// now open the created repository
-			FileRepositoryBuilder builder = new FileRepositoryBuilder();
-			Repository repository1 = builder.setGitDir(localPath).readEnvironment() // scan
-																					// environment
-																					// GIT_*
-																					// variables
-					.findGitDir() // scan up the file system tree
-					.build();
-			Git git1 = new Git(repository1);
-			git1.push().call();
+			git.push().setCredentialsProvider(new UsernamePasswordCredentialsProvider(GIT_USER, GIT_PASSWORD)).call();
 		} catch (InvalidRemoteException e) {
 			System.out.println("GitOperationService InvalidRemoteException ");
 		} catch (TransportException e) {

@@ -2,6 +2,10 @@ package bean;
 
 public class InputBean  implements java.io.Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String name;
 	String content;
 	

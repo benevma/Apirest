@@ -2,6 +2,10 @@ package bean;
 
 public class InputExpertBean  implements java.io.Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	boolean update;
 	InputBean[] documents;
 	
