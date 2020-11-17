@@ -28,8 +28,8 @@ public class GitOperationService implements IGitOperationService {
    // private static final String GIT_PASSWORD = "password";
 
     private static final String REMOTE_URL = "https://github.com/benevma/test-crud.git";
-    private static final String GIT_USER = "benevma@gmail.com";
-    private static final String GIT_PASSWORD = "Krakovic!12";
+    private static final String GIT_USER = "ben****.com";
+    private static final String GIT_PASSWORD = "Krako****";
     
 	//Inject service containing configurations
 	
