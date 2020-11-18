@@ -37,7 +37,7 @@ public class ApiService {
 	public Response postAnalyze(InputExpertBean info) {
 		
 		//Need to update file to git folder
-		if(info.isUpdate()){
+		if(ApiRestPropertiesUtil.getInstance().isUpdateGit()){
 			gitService = new GitOperationService();
 			gitService.pushFile(info.getDocuments());
 		}
