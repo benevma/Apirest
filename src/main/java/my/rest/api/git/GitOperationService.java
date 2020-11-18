@@ -21,10 +21,6 @@ import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import bean.InputBean;
 
 public class GitOperationService implements IGitOperationService {
-
-	   private static final String REMOTE_URL = "https://github.com/oriolserret/expert.ai.assessment.git";
-	   private static final String GIT_USER = "user";
-	   private static final String GIT_PASSWORD = "password";
     
 	//Inject service containing configurations
 	
@@ -40,13 +36,13 @@ public class GitOperationService implements IGitOperationService {
 		    }
 		    localPath.delete();
 		    
-			Git git = Git.cloneRepository().setURI(REMOTE_URL)
-					.setCredentialsProvider(new UsernamePasswordCredentialsProvider(GIT_USER, GIT_PASSWORD))
+			Git git = Git.cloneRepository().setURI(ApiRestPropertiesUtil.getInstance().getGiturl())
+					.setCredentialsProvider(new UsernamePasswordCredentialsProvider(ApiRestPropertiesUtil.getInstance().getGituser(), ApiRestPropertiesUtil.getInstance().getGitpassword()))
 					.setDirectory(localPath)
 					.call();
 			Repository repository = git.getRepository();
 			// create the folder
-			File theDir = new File(repository.getDirectory().getParent(), "tree/main/inputFolder"+Long.toString(System.currentTimeMillis()));
+			File theDir = new File(repository.getDirectory().getParent(), ApiRestPropertiesUtil.getInstance().getGitdirupload());
 			theDir.mkdir();
 
 			// create the file
