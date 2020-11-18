@@ -44,7 +44,7 @@ public class ApiService {
 		
 		//Invoke ai services
 		aiService = NlClientService.getInstance();
-		ArrayList<DaoInputBean> aiOutput = aiService.evaluateDocuments(info.getDocuments());
+		ArrayList<DaoInputBean> aiOutput = aiService.evaluateDocuments(info.getBearer(), info.getDocuments());
 		
 		//Invoke db service
 		if(aiOutput!=null && aiOutput.size()>0){
