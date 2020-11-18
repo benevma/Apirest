@@ -30,9 +30,9 @@ public class NlClientService implements INlClientService{
 			Client client = Client.create();
 			service = new NlClientService();
 			webResourceAnalyze = client
-			           .resource(INlClientService.ANALYZE_URL);
+			           .resource(ApiRestPropertiesUtil.getInstance().getAnalyzeurl());
 			webResourceCategorize = client
-			           .resource(INlClientService.CATEGORIZE_URL);
+			           .resource(ApiRestPropertiesUtil.getInstance().getCategorizeurl());
 		}
 		return service;
 	}
