@@ -8,6 +8,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import bean.ChartBean;
 import bean.InputExpertBean;
 import bean.OutputBean;
 import bean.OutputExpertBean;
@@ -60,10 +61,30 @@ public class ApiService {
 		
 		if(aiOutput!=null && aiOutput.size()>0){
 			for(DaoInputBean input : aiOutput){
+
 				OutputBean infoOut = new OutputBean();
 				infoOut.setFilename(input.getFileName());
-				infoOut.setAnalyze(ClientUtils.getJsonFromJavaObj(input.getAnalize()));//send just output as a string 
-				infoOut.setCategorize(ClientUtils.getJsonFromJavaObj(input.getCategorize()));//send just output as a string 
+				HashMap<String, ChartBean> chartbeans = new HashMap<String, ChartBean>();
+				
+				if(input.getCategorize()!=null
+						&& input.getCategorize().getData()!=null
+						&& input.getCategorize().getData().getCategories()!=null
+						&& input.getCategorize().getData().getCategories().size()>0){
+					
+
+					for(Category cat : input.getCategorize().getData().getCategories()){
+						ChartBean chartCurrent = chartbeans.containsKey(cat.getLabel())?chartbeans.get(cat.getLabel()):new ChartBean(cat.getLabel());
+						chartCurrent.increaseCount();
+						chartbeans.put(cat.getLabel(), chartCurrent);
+					}
+					
+					ArrayList<ChartBean> catArray = new ArrayList<ChartBean>();
+					for(String key : chartbeans.keySet()){
+						catArray.add(chartbeans.get(key));
+					}
+					infoOut.setCategories(catArray);
+				}
+				
 				contenuti.add(infoOut);
 			}
 		}
