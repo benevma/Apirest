@@ -40,7 +40,7 @@ public class NlClientService implements INlClientService{
 	/**
 	 *Invoke AI  analzye and categorize
 	 */
-	public ArrayList<DaoInputBean> evaluateDocuments(String bearer, InputBean[] documents){
+	public ArrayList<DaoInputBean> evaluateDocuments(InputBean[] documents){
 		
 		ArrayList<DaoInputBean> output = new ArrayList<DaoInputBean>();
 		
@@ -58,16 +58,16 @@ public class NlClientService implements INlClientService{
 			try {
 				response = webResourceAnalyze
 					    .header("Content-Type", "application/json;charset=UTF-8")
-					    .header("Authorization", "Bearer " + bearer)
+					    .header("Authorization", "Bearer " + ApiRestPropertiesUtil.getInstance().getBearer();)
 				        .post(ClientResponse.class,request);
 			} catch (UniformInterfaceException e) {
 				System.out.println("webResourceAnalyze UniformInterfaceException "+doc.getName());
 				//retrieve mock response just for testing
-				responseAnalyze = ClientUtils.getObjectFromJsonString(INlClientService.ANALIZE_MOCK, AnalyzeResponse.class);
+				responseAnalyze = ClientUtils.getObjectFromJsonString(ApiRestPropertiesUtil.getInstance().getAnalyzemock(), AnalyzeResponse.class);
 			} catch (ClientHandlerException e) {
 				System.out.println("webResourceAnalyze ClientHandlerException "+doc.getName());
 				//retrieve mock response just for testing
-				responseAnalyze = ClientUtils.getObjectFromJsonString(INlClientService.ANALIZE_MOCK, AnalyzeResponse.class);
+				responseAnalyze = ClientUtils.getObjectFromJsonString(ApiRestPropertiesUtil.getInstance().getAnalyzemock(), AnalyzeResponse.class);
 			}finally{
 				if(response!=null
 						&& response.getStatus() == 200){
@@ -85,17 +85,17 @@ public class NlClientService implements INlClientService{
 				
 				response = webResourceCategorize
 					    .header("Content-Type", "application/json;charset=UTF-8")
-					    .header("Authorization", "Bearer " + bearer)
+					    .header("Authorization", "Bearer " + ApiRestPropertiesUtil.getInstance().getBearer();)
 				        .post(ClientResponse.class,request);
 				
 			} catch (UniformInterfaceException e) {
 				System.out.println("webResourceCategorize UniformInterfaceException "+doc.getName());
 				//retrieve mock response just for testing
-				responseCategorize = ClientUtils.getObjectFromJsonString(INlClientService.CATEGORIZE_MOCK, CategorizeResponse.class);
+				responseCategorize = ClientUtils.getObjectFromJsonString(ApiRestPropertiesUtil.getInstance().getCategorizemock(), CategorizeResponse.class);
 			} catch (ClientHandlerException e) {
 				System.out.println("webResourceCategorize ClientHandlerException "+doc.getName());
 				//retrieve mock response just for testing
-				responseCategorize = ClientUtils.getObjectFromJsonString(INlClientService.CATEGORIZE_MOCK, CategorizeResponse.class);
+				responseCategorize = ClientUtils.getObjectFromJsonString(ApiRestPropertiesUtil.getInstance().getCategorizemock(), CategorizeResponse.class);
 			}finally{
 				if(response!=null
 						&& response.getStatus() == 200){
