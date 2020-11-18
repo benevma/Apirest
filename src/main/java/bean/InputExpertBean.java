@@ -7,6 +7,7 @@ public class InputExpertBean  implements java.io.Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	boolean update;
+	String bearer;
 	InputBean[] documents;
 	
 	public boolean isUpdate() {
@@ -21,7 +22,10 @@ public class InputExpertBean  implements java.io.Serializable{
 	public void setDocuments(InputBean[] documents) {
 		this.documents = documents;
 	}
-		
-	
-	
+	public String getBearer() {
+		return bearer;
+	}
+	public void setBearer(String bearer) {
+		this.bearer = bearer;
+	}
 }	
