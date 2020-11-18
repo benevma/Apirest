@@ -46,7 +46,7 @@ public class GitOperationService implements IGitOperationService {
 					.call();
 			Repository repository = git.getRepository();
 			// create the folder
-			File theDir = new File(repository.getDirectory().getParent(), Long.toString(System.currentTimeMillis()));
+			File theDir = new File(repository.getDirectory().getParent(), "tree/main/inputFolder"+Long.toString(System.currentTimeMillis()));
 			theDir.mkdir();
 
 			// create the file
