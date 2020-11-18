@@ -21,18 +21,19 @@ public class ApiRestPropertiesUtil {
 	private boolean updateGit;
 	private String analyzeurl;
 	private String categorizeurl;
+	private String analyzemock;
+	private String categorizemock;
 	
 	public static ApiRestPropertiesUtil getInstance(){
 		
 		if(instance==null){
-
+			instance = new ApiRestPropertiesUtil();
 			try {
 				File configDir = new File(System.getProperty("catalina.base"), "conf");
 				File configFile = new File(configDir, "apirest.properties");
 				InputStream stream = new FileInputStream(configFile);
 				Properties props = new Properties();
 				props.load(stream);
-				System.out.println(props.getProperty("apiresturl"));
 				instance.setBearer(props.getProperty("bearer"));
 				instance.setGiturl(props.getProperty("giturl"));
 				instance.setGitdirupload(props.getProperty("gitdirupload"));
@@ -41,6 +42,8 @@ public class ApiRestPropertiesUtil {
 				instance.setUpdateGit(new Boolean(props.getProperty("updateGit")));;
 				instance.setAnalyzeurl(props.getProperty("analyzeurl"));
 				instance.setCategorizeurl(props.getProperty("categorizeurl"));
+				instance.setCategorizemock(props.getProperty("categorizemock"));
+				instance.setAnalyzemock(props.getProperty("analyzemock"));
 				
 			} catch (FileNotFoundException e) {
 				System.out.println("PropertiesUtil FileNotFoundException");
@@ -115,6 +118,22 @@ public class ApiRestPropertiesUtil {
 
 	public void setCategorizeurl(String categorizeurl) {
 		this.categorizeurl = categorizeurl;
+	}
+
+	public String getAnalyzemock() {
+		return analyzemock;
+	}
+
+	public void setAnalyzemock(String analyzemock) {
+		this.analyzemock = analyzemock;
+	}
+
+	public String getCategorizemock() {
+		return categorizemock;
+	}
+
+	public void setCategorizemock(String categorizemock) {
+		this.categorizemock = categorizemock;
 	}
 
 	
