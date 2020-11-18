@@ -40,7 +40,7 @@ public class NlClientService implements INlClientService{
 	/**
 	 *Invoke AI  analzye and categorize
 	 */
-	public ArrayList<DaoInputBean> evaluateDocuments(InputBean[] documents){
+	public ArrayList<DaoInputBean> evaluateDocuments(String bearer, InputBean[] documents){
 		
 		ArrayList<DaoInputBean> output = new ArrayList<DaoInputBean>();
 		
@@ -58,7 +58,7 @@ public class NlClientService implements INlClientService{
 			try {
 				response = webResourceAnalyze
 					    .header("Content-Type", "application/json;charset=UTF-8")
-					    .header("Authorization", "Bearer " + INlClientService.BEARER)
+					    .header("Authorization", "Bearer " + bearer)
 				        .post(ClientResponse.class,request);
 			} catch (UniformInterfaceException e) {
 				System.out.println("webResourceAnalyze UniformInterfaceException "+doc.getName());
@@ -85,7 +85,7 @@ public class NlClientService implements INlClientService{
 				
 				response = webResourceCategorize
 					    .header("Content-Type", "application/json;charset=UTF-8")
-					    .header("Authorization", "Bearer " + INlClientService.BEARER)
+					    .header("Authorization", "Bearer " + bearer)
 				        .post(ClientResponse.class,request);
 				
 			} catch (UniformInterfaceException e) {
