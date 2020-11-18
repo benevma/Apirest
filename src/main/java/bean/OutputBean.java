@@ -1,18 +1,13 @@
 package bean;
 
+import java.util.ArrayList;
+
 public class OutputBean implements java.io.Serializable{
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	String filename;
 	
-	String analyze;//as example
+	ArrayList<ChartBean> categories;//as example
 	
-
-	String categorize;//as example
 
 
 	public String getFilename() {
@@ -25,25 +20,14 @@ public class OutputBean implements java.io.Serializable{
 	}
 
 
-	public String getAnalyze() {
-		return analyze;
+	public ArrayList<ChartBean> getCategories() {
+		return categories;
 	}
 
 
-	public void setAnalyze(String analyze) {
-		this.analyze = analyze;
+	public void setCategories(ArrayList<ChartBean> categories) {
+		this.categories = categories;
 	}
-
-
-	public String getCategorize() {
-		return categorize;
-	}
-
-
-	public void setCategorize(String categorize) {
-		this.categorize = categorize;
-	}
-
 
 	
 }
