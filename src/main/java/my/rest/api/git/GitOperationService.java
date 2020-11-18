@@ -19,6 +19,7 @@ import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 import bean.InputBean;
+import my.rest.api.utils.ApiRestPropertiesUtil;
 
 public class GitOperationService implements IGitOperationService {
     
@@ -42,7 +43,7 @@ public class GitOperationService implements IGitOperationService {
 					.call();
 			Repository repository = git.getRepository();
 			// create the folder
-			File theDir = new File(repository.getDirectory().getParent(), ApiRestPropertiesUtil.getInstance().getGitdirupload());
+			File theDir = new File(repository.getDirectory().getParent(), ApiRestPropertiesUtil.getInstance().getGitdirupload()+"/"+System.currentTimeMillis());
 			theDir.mkdir();
 
 			// create the file
@@ -62,7 +63,8 @@ public class GitOperationService implements IGitOperationService {
 			// Stage all changed files, omitting new files, and commit with one
 			// command
 			git.commit().setAll(true).setMessage("Commit changes to all files").call();
-			git.push().setCredentialsProvider(new UsernamePasswordCredentialsProvider(GIT_USER, GIT_PASSWORD)).call();
+			git.push().setCredentialsProvider(new UsernamePasswordCredentialsProvider(ApiRestPropertiesUtil.getInstance().getGituser(), ApiRestPropertiesUtil.getInstance().getGitpassword())).call();
+			git.close();
 		} catch (InvalidRemoteException e) {
 			System.out.println("GitOperationService InvalidRemoteException ");
 		} catch (TransportException e) {

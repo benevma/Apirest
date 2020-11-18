@@ -14,6 +14,7 @@ import my.rest.api.nl.bean.AnalysisRequest;
 import my.rest.api.nl.bean.AnalyzeResponse;
 import my.rest.api.nl.bean.CategorizeResponse;
 import my.rest.api.nl.bean.Document;
+import my.rest.api.utils.ApiRestPropertiesUtil;
 import my.rest.api.utils.ClientUtils;
 
 public class NlClientService implements INlClientService{
@@ -58,7 +59,7 @@ public class NlClientService implements INlClientService{
 			try {
 				response = webResourceAnalyze
 					    .header("Content-Type", "application/json;charset=UTF-8")
-					    .header("Authorization", "Bearer " + ApiRestPropertiesUtil.getInstance().getBearer();)
+					    .header("Authorization", "Bearer " + ApiRestPropertiesUtil.getInstance().getBearer())
 				        .post(ClientResponse.class,request);
 			} catch (UniformInterfaceException e) {
 				System.out.println("webResourceAnalyze UniformInterfaceException "+doc.getName());
@@ -85,7 +86,7 @@ public class NlClientService implements INlClientService{
 				
 				response = webResourceCategorize
 					    .header("Content-Type", "application/json;charset=UTF-8")
-					    .header("Authorization", "Bearer " + ApiRestPropertiesUtil.getInstance().getBearer();)
+					    .header("Authorization", "Bearer " + ApiRestPropertiesUtil.getInstance().getBearer())
 				        .post(ClientResponse.class,request);
 				
 			} catch (UniformInterfaceException e) {

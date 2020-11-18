@@ -1,5 +1,6 @@
 package my.rest.api;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -17,9 +18,10 @@ import my.rest.api.db.IDaoService;
 import my.rest.api.db.bean.DaoInputBean;
 import my.rest.api.git.GitOperationService;
 import my.rest.api.git.IGitOperationService;
+import my.rest.api.nl.bean.Category;
 import my.rest.api.nl.client.INlClientService;
 import my.rest.api.nl.client.NlClientService;
-import my.rest.api.utils.ClientUtils;
+import my.rest.api.utils.ApiRestPropertiesUtil;
 
 @Path("/service")
 @Produces(MediaType.APPLICATION_JSON)
@@ -64,6 +66,7 @@ public class ApiService {
 
 				OutputBean infoOut = new OutputBean();
 				infoOut.setFilename(input.getFileName());
+
 				HashMap<String, ChartBean> chartbeans = new HashMap<String, ChartBean>();
 				
 				if(input.getCategorize()!=null
